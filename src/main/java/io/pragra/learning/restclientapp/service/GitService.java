@@ -5,6 +5,7 @@ import io.pragra.learning.restclientapp.repo.GitRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.reactive.function.client.WebClient;
 
 @Service
 public class GitService {
@@ -19,6 +20,7 @@ public class GitService {
         return gitRepo.findById(id).orElse(null);
     }
     public Gituser addgituser(Gituser gituser) {
+        System.out.println(gituser.toString());
         return gitRepo.save(gituser);
     }
 
@@ -33,9 +35,9 @@ public class GitService {
     }
 
     public Gituser getGituser(String name) {
-        Gituser forObject = restTemplate.getForObject("https://api.github.com/users/" + name, Gituser.class);
-        System.out.println(forObject);
-        return forObject;
+        Gituser gituser = restTemplate.getForObject("https://api.github.com/users/" + name, Gituser.class);
+        System.out.println(gituser);
+        return gituser;
     }
 
 }
